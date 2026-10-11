@@ -5,6 +5,7 @@ import com.cami_dev.gaceta_ingles.dtos.UsuarioResponseDTO;
 import com.cami_dev.gaceta_ingles.models.Usuario;
 import com.cami_dev.gaceta_ingles.repositories.UsuarioRepository;
 import com.cami_dev.gaceta_ingles.services.UsuarioService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +21,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     public UsuarioResponseDTO crearUsuario(UsuarioRequestDTO request){
 
         //valida que el email no haya sido registrado antes
-        if(usuarioRepository.existByEmail(request.email())){
+        if(usuarioRepository.existsByEmail(request.email())){
             throw new IllegalArgumentException("El email ya ha sido registrado");
         }
 
@@ -36,7 +37,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     public UsuarioResponseDTO obtenerUsuarioPorId(Long id){
 
         Usuario usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado"));
 
         return mapearAResponseDTO(usuario);
     }

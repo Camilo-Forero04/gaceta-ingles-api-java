@@ -11,5 +11,5 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Long> {
     //JPA crea la funcion automaticamente con solo leer el nombre del metodo
     Optional<Usuario> findByEmail(String email);
 
-    boolean existByEmail(String email);
+    boolean existsByEmail(String email);
 }

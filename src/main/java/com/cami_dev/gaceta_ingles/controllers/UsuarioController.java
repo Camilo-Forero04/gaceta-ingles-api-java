@@ -24,8 +24,8 @@ public class UsuarioController {
         return  ResponseEntity.status(HttpStatus.CREATED).body(nuevoUsuario);
     }
 
-    @GetMapping
-    public ResponseEntity<UsuarioResponseDTO> obtenerUsuario(@PathVariable Long id){
+    @GetMapping("/{id}")
+    public ResponseEntity<UsuarioResponseDTO> obtenerUsuario(@PathVariable("id") Long id){ //se agrega el ("id") para que swagger lo reconozca
         UsuarioResponseDTO usuario = usuarioService.obtenerUsuarioPorId(id);
         return ResponseEntity.ok(usuario);
     }
